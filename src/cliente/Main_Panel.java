@@ -90,7 +90,7 @@ public class Main_Panel implements ActionListener{
 		if(e.getActionCommand().equals("Buugle?")) {
 			Desktop d = Desktop.getDesktop();
 			try {
-				d.browse(new URI("https://github.com/lauro-ss"));
+				d.browse(new URI("https://github.com/lauro-ss/Projeto_Buugle"));
 			} catch (IOException | URISyntaxException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
