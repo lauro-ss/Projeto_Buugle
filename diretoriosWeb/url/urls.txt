@@ -1,0 +1,3 @@
+https://www.google.com.br/;https://www.google.com.br/maps?hl=pt-BR;https://meet.google.com/?hs=197&pli=1&authuser=0
+https://www.google.com/intl/pt/drive/;https://news.google.com/;https://translate.google.com.br/
+https://www.youtube.com/;
