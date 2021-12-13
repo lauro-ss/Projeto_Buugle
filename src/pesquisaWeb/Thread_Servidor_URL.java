@@ -16,15 +16,15 @@ public class Thread_Servidor_URL extends Thread{
 	
 	public void run() {
 		try {
-			BufferedReader conexao_entrada = new BufferedReader(new InputStreamReader(conexao.getInputStream())); //recebe dados do servidor_principal
-			String pesquisa = conexao_entrada.readLine(); //recebe pesquisa que foi enviada para o servidor_principal
+			BufferedReader conexao_entrada = new BufferedReader(new InputStreamReader(conexao.getInputStream())); //buffer para receber dados do cliente
+			String pesquisa = conexao_entrada.readLine(); //recebe pesquisa que foi enviada pelo cliente
 			System.out.println("Procurando por --- " + pesquisa);
 			URLAccess procura = new URLAccess(); //classe que controla o acesso ao url e retorna a pesquisa feita
 	
 			pesquisa = procura.pesquise(pesquisa); //retorna o url que deu match com o conteudo pesquisado
 			
-			DataOutputStream conexao_saida = new DataOutputStream(conexao.getOutputStream()); //envia dados para o servidor_pri
-			conexao_saida.writeBytes(pesquisa + '\n'); //envia a pesquisa para o servidor_principal
+			DataOutputStream conexao_saida = new DataOutputStream(conexao.getOutputStream()); //buffer para envia dados para o cliente
+			conexao_saida.writeBytes(pesquisa + '\n'); //envia a pesquisa para o cliente
 			
 			conexao_saida.close();
 			conexao_entrada.close();

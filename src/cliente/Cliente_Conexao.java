@@ -12,7 +12,7 @@ public class Cliente_Conexao {
 	public Hyperlink[] enviar_pesquisa(String pesquisa) {
 		try {
 			
-			Socket conexao = new Socket("127.0.0.1",8020); //conexao com o servidor_principal
+			Socket conexao = new Socket("127.0.0.1",8040); //conexao com o servidor_principal
 			BufferedReader conexao_entrada = new BufferedReader(new InputStreamReader(conexao.getInputStream())); //recebe dados do servidor_pri
 			DataOutputStream conexao_saida = new DataOutputStream(conexao.getOutputStream()); //envia dados para o servidor_pri
 			conexao_saida.writeBytes(pesquisa + '\n'); //envia para o servidor_principal o conteudo procurado
