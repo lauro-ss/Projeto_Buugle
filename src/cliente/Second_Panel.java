@@ -124,8 +124,13 @@ public class Second_Panel implements ActionListener, MouseListener{
 				panel.remove(conteudo_encontrado[i]); //remove do painel todos os hyperlinks
 				panel.remove(conteudo_encontrado_aux[i]); //remove do painel todos os host from <url>
 			}
+			t = go_to_pg.length;
+			for(int i = 0; i < t; i++) {
+				panel.remove(go_to_pg[i]);
+			}
 			this.conteudo_encontrado = null; //seta como nulo para 'zerar' o array
 			this.conteudo_encontrado_aux = null; //seta como nulo para 'zerar' o array
+			this.go_to_pg = null; //seta o como nulo para 'zerar' o numero de paginas
 			
 			this.links = conexao.enviar_pesquisa(caixa_pesquisa.getText()); //envia a string procurada para o servidor principal
 			this.last_pesquisa = caixa_pesquisa.getText(); //guarda a ultima pesquisa feita, pois caso seja igual a proxima, nao muda os links
@@ -133,6 +138,17 @@ public class Second_Panel implements ActionListener, MouseListener{
 			this.quant_pags = (this.quant_links/5)+1; //como o maximo de links exibidos e 5, entao essa expressao pega a media deles em 5
 			this.conteudo_encontrado = new JLabel[quant_links];
 			this.conteudo_encontrado_aux = new JLabel[quant_links];
+			
+			this.go_to_pg = new JLabel[quant_pags];
+			/*condicao que confirma a necessidade de haver mais de uma pagina*/
+			for(int i = 0; i < quant_pags; i++) {
+				this.go_to_pg[i] = new JLabel(Integer.toString(i+1));
+				this.go_to_pg[i].setFont(new Font("Arial",Font.PLAIN,12));
+				this.go_to_pg[i].addMouseListener(this);
+				this.go_to_pg[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				this.go_to_pg[i].setBounds(250+(i*30),530,12,12);
+				this.panel.add(go_to_pg[i]);
+			}
 			
 			this.pg_atual = 0; //numero de paginas setado para 0
 			mostraLinks(); //adiciona na tela ate cinco hyperlinks
