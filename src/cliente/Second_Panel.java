@@ -66,31 +66,37 @@ public class Second_Panel implements ActionListener, MouseListener{
 		/*mensagem*/
 		this.conexao = new Cliente_Conexao();
 		this.links = conexao.enviar_pesquisa(pesquisa); //envia a string procurada para o servidor principal
-		this.last_pesquisa = pesquisa;
-		this.quant_links = links.length;
-		this.quant_pags = (this.quant_links/5)+1; //quantidade de paginas
-		this.conteudo_encontrado = new JLabel[quant_links]; //quantidade de links encontrados
-		this.conteudo_encontrado_aux = new JLabel[quant_links];
-		
-		this.go_to_pg = new JLabel[quant_pags];
-		/*condicao que confirma a necessidade de haver mais de uma pagina*/
-		for(int i = 0; i < quant_pags; i++) {
-			this.go_to_pg[i] = new JLabel(Integer.toString(i+1));
-			this.go_to_pg[i].setFont(new Font("Arial",Font.PLAIN,12));
-			this.go_to_pg[i].addMouseListener(this);
-			this.go_to_pg[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-			this.go_to_pg[i].setBounds(250+(i*30),530,12,12);
-			this.panel.add(go_to_pg[i]);
+		if(this.links != null) {
+			this.last_pesquisa = pesquisa;
+			this.quant_links = links.length;
+			this.quant_pags = (this.quant_links/5)+1; //quantidade de paginas
+			this.conteudo_encontrado = new JLabel[quant_links]; //quantidade de links encontrados
+			this.conteudo_encontrado_aux = new JLabel[quant_links];
+			
+			this.go_to_pg = new JLabel[quant_pags];
+			/*condicao que confirma a necessidade de haver mais de uma pagina*/
+			for(int i = 0; i < quant_pags; i++) {
+				this.go_to_pg[i] = new JLabel(Integer.toString(i+1));
+				this.go_to_pg[i].setFont(new Font("Arial",Font.PLAIN,12));
+				this.go_to_pg[i].addMouseListener(this);
+				this.go_to_pg[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				this.go_to_pg[i].setBounds(250+(i*30),530,12,12);
+				this.panel.add(go_to_pg[i]);
+			}
+			/*exibe todos os hyperlinks*/
+			mostraLinks();
+			
+			this.panel.add(botao_pesquisa);
+			this.panel.add(caixa_pesquisa);
+			this.panel.add(label_logo);
+			
+			this.panel.setVisible(true);
+			this.panel.setLayout(null);
+		}else {
+			this.panel.removeAll();
+			this.panel.repaint();
+			new Error_Panel(this.panel);
 		}
-		mostraLinks();
-		//acessConteudo(0); //adiciona na tela ate cinco hyperlinks
-		
-		this.panel.add(botao_pesquisa);
-		this.panel.add(caixa_pesquisa);
-		this.panel.add(label_logo);
-		
-		this.panel.setVisible(true);
-		this.panel.setLayout(null);
 		
 	}
 	@Override

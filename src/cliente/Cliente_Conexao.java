@@ -25,9 +25,9 @@ public class Cliente_Conexao {
 			return cria_Hyperlinks(pesquisa); //retorna o url procurado
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 	
 	public Hyperlink[] cria_Hyperlinks(String conteudos) throws MalformedURLException{
