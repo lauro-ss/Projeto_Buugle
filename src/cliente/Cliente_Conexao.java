@@ -4,44 +4,39 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Cliente_Conexao {
 	
 	public Hyperlink[] enviar_pesquisa(String pesquisa) {
+		if(pesquisa == null)
+			return new Hyperlink[0];
+		if(pesquisa.equals(""))
+			return new Hyperlink[0]; //caso a pesquisa seja vazia ou nula retorna 0 hyperlinks
 		try {
-			
 			Socket conexao = new Socket("127.0.0.1",8040); //conexao com o servidor_principal
 			BufferedReader conexao_entrada = new BufferedReader(new InputStreamReader(conexao.getInputStream())); //recebe dados do servidor_pri
 			DataOutputStream conexao_saida = new DataOutputStream(conexao.getOutputStream()); //envia dados para o servidor_pri
 			conexao_saida.writeBytes(pesquisa + '\n'); //envia para o servidor_principal o conteudo procurado
-			
-			pesquisa = conexao_entrada.readLine(); //recebe o url procurado
+			String conteudo_encontrado = "";
+			ArrayList<Hyperlink> links = new ArrayList<Hyperlink>(); //arraylist para guarda todos os hyperlinks
+			while(!(conteudo_encontrado.equals("null"))) {
+				conteudo_encontrado = conexao_entrada.readLine(); //recebe cada url + titulo
+				if(!(conteudo_encontrado.equals("null"))) //condicao para nao guardar o flag "null" vindo pelo servidor
+					links.add(new Hyperlink(conteudo_encontrado.split(";")[0],conteudo_encontrado.split(";")[1])); //recebe o url procurado
+			}
 			
 			conexao_saida.close();
 			conexao.close();
 			
-			return cria_Hyperlinks(pesquisa); //retorna o url procurado
+			return links.toArray(new Hyperlink[0]); //retorna o array com os dados procurado
+			//return null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			return null;
 		}
-	}
-	
-	public Hyperlink[] cria_Hyperlinks(String conteudos) throws MalformedURLException{
-		String remove_1[] = conteudos.split("!");
-		int quant_links = remove_1.length;
-		Hyperlink hyper[] = new Hyperlink[quant_links];
-		
-		String remove_2[];
-		
-		for(int i = 0;i < quant_links; i++) {
-			remove_2 = remove_1[i].split(";");
-			hyper[i] = new Hyperlink(remove_2[0],remove_2[1]);
-		}
-		return hyper;
 	}
 	
 }

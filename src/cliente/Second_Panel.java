@@ -66,7 +66,7 @@ public class Second_Panel implements ActionListener, MouseListener{
 		/*mensagem*/
 		this.conexao = new Cliente_Conexao();
 		this.links = conexao.enviar_pesquisa(pesquisa); //envia a string procurada para o servidor principal
-		if(this.links != null) {
+		if(this.links != null && this.links.length > 0) {
 			this.last_pesquisa = pesquisa;
 			this.quant_links = links.length;
 			this.quant_pags = (this.quant_links/5)+1; //quantidade de paginas
@@ -93,9 +93,22 @@ public class Second_Panel implements ActionListener, MouseListener{
 			this.panel.setVisible(true);
 			this.panel.setLayout(null);
 		}else {
-			this.panel.removeAll();
-			this.panel.repaint();
-			new Error_Panel(this.panel);
+			/*caso para servidor desligado ou com problemas*/
+			if(this.links == null) {
+				this.panel.removeAll();
+				this.panel.repaint();
+				new Error_Panel(this.panel);
+			}
+			this.conteudo_encontrado = new JLabel[0];
+			this.conteudo_encontrado_aux = new JLabel[0];
+			this.last_pesquisa = pesquisa;
+			
+			this.panel.add(botao_pesquisa);
+			this.panel.add(caixa_pesquisa);
+			this.panel.add(label_logo);
+			
+			this.panel.setVisible(true);
+			this.panel.setLayout(null);
 		}
 		
 	}
@@ -103,23 +116,28 @@ public class Second_Panel implements ActionListener, MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		if(caixa_pesquisa.getText().compareToIgnoreCase(last_pesquisa) == 0) {
 			/*caso o conteudo pesquisado seja o mesmo, nao ocorre nada*/
+		}else if(caixa_pesquisa.getText().equals("")) {
+			/*caso o conteudo pesquisado seja vazio, nao ocorre nada*/
 		}else {
 			int t = conteudo_encontrado.length;
 			for(int i = 0; i < t; i++) {
-				panel.remove(conteudo_encontrado[i]);
+				panel.remove(conteudo_encontrado[i]); //remove do painel todos os hyperlinks
+				panel.remove(conteudo_encontrado_aux[i]); //remove do painel todos os host from <url>
 			}
-			this.conteudo_encontrado = null;
-			this.conteudo_encontrado_aux = null;
+			this.conteudo_encontrado = null; //seta como nulo para 'zerar' o array
+			this.conteudo_encontrado_aux = null; //seta como nulo para 'zerar' o array
+			
 			this.links = conexao.enviar_pesquisa(caixa_pesquisa.getText()); //envia a string procurada para o servidor principal
-			this.last_pesquisa = caixa_pesquisa.getText();
-			this.quant_links = links.length;
-			this.quant_pags = (this.quant_links/5)+1;
+			this.last_pesquisa = caixa_pesquisa.getText(); //guarda a ultima pesquisa feita, pois caso seja igual a proxima, nao muda os links
+			this.quant_links = links.length; //quantidade de hyperlinks
+			this.quant_pags = (this.quant_links/5)+1; //como o maximo de links exibidos e 5, entao essa expressao pega a media deles em 5
 			this.conteudo_encontrado = new JLabel[quant_links];
 			this.conteudo_encontrado_aux = new JLabel[quant_links];
 			
 			this.pg_atual = 0; //numero de paginas setado para 0
 			mostraLinks(); //adiciona na tela ate cinco hyperlinks
 			
+			/*atualiza o painel atual*/
 			this.panel.setVisible(true);
 			this.panel.setLayout(null);
 			this.panel.repaint();
@@ -189,7 +207,7 @@ public class Second_Panel implements ActionListener, MouseListener{
 				this.panel.add(conteudo_encontrado_aux[i]);
 				aux++;
 			}
-			
+			/*atualiza o painel atual*/
 			this.panel.setVisible(true);
 			this.panel.setLayout(null);
 			this.panel.repaint();
@@ -230,7 +248,7 @@ public class Second_Panel implements ActionListener, MouseListener{
 				this.panel.add(conteudo_encontrado_aux[i]);
 			}
 		}
-		
+		/*atualiza o painel atual*/
 		this.panel.setVisible(true);
 		this.panel.setLayout(null);
 		this.panel.repaint();

@@ -56,6 +56,7 @@ public class URLControl {
 							}
 						}
 						int prim = aux;
+						/*while para guarda o titulo da url*/
 						while(linha_builder.charAt(aux) != '<' && linha_builder.charAt(aux) != '\n'){
 							/*if para remover espaco no comeco do titulo*/
 							if(linha_builder.charAt(prim) == ' ')
