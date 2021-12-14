@@ -99,14 +99,16 @@ public class Second_Panel implements ActionListener, MouseListener{
 				this.panel.repaint();
 				new Error_Panel(this.panel);
 			}
-			this.conteudo_encontrado = new JLabel[0];
-			this.conteudo_encontrado_aux = new JLabel[0];
+			this.conteudo_encontrado = new JLabel[0]; //seta para 0 a pesquisa vazia
+			this.conteudo_encontrado_aux = new JLabel[0]; //seta para 0 a pesquisa vazia
+			this.go_to_pg = new JLabel[0]; //seta para 0 a pesquisa vazia
 			this.last_pesquisa = pesquisa;
 			
 			this.panel.add(botao_pesquisa);
 			this.panel.add(caixa_pesquisa);
 			this.panel.add(label_logo);
 			
+			/*atualiza o painel atual*/
 			this.panel.setVisible(true);
 			this.panel.setLayout(null);
 		}
