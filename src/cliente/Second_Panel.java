@@ -164,16 +164,16 @@ public class Second_Panel implements ActionListener, MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		/*condicional para caso o usuario va para a proxima pagina*/
-		if(e.getComponent().getBounds().x == 250) {
-			acessConteudo(0);
-			flag = 0;
-		}
-		else if(e.getComponent().getBounds().x == 280) {
-			acessConteudo(1);
-			flag = 5*1;
+		
+		/*for para comparar todas as paginas e ver qual delas foi clicada*/
+		for(int i = 0, x = 250; i < quant_pags; i++, x += 30) {
+			if(e.getComponent().getBounds().x == x) {
+				acessConteudo(i);
+				flag = i*5;
+			}
 		}
 		
+		/*for para comparar todos os hyperlinks e ver qual foi clicado*/
 		Desktop d = Desktop.getDesktop();
 		for(int i = flag; i < quant_links; i++) {
 			if(e.getComponent().getBounds().y == (60+((i-flag)*100))) {
