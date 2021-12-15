@@ -1,4 +1,4 @@
 https://www.google.com.br/;https://www.google.com.br/maps?hl=pt-BR;https://meet.google.com/?hs=197&pli=1&authuser=0
 https://www.google.com/intl/pt/drive/;https://news.google.com/;https://translate.google.com.br/
-https://classroom.google.com/u/0/h;https://www.google.com/photos/about/;https://calendar.google.com/calendar/u/0/r?tab=rc
+https://edu.google.com/intl/pt/products/classroom/;https://www.google.com/photos/about/;https://calendar.google.com/calendar/u/0/r?tab=rc
 https://shopping.google.com.br/?nord=1;https://www.google.com.br/intl/pt-BR/earth/;https://artsandculture.google.com/
