@@ -53,11 +53,14 @@ public class Second_Panel implements ActionListener, MouseListener{
 		this.botao_pesquisa = new JButton("Pesquisar");
 		this.botao_pesquisa.setFont(new Font("Arial",Font.PLAIN,12));
 		this.botao_pesquisa.setBackground(Color.WHITE);
+		this.botao_pesquisa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.botao_pesquisa.addActionListener(this);
 		this.botao_pesquisa.setBounds(620,15,100,29);
 		
 		this.label_logo = new JLabel();
 		this.label_logo.setIcon(new ImageIcon(getClass().getClassLoader().getResource("logo_buugle_pg2.png")));
+		this.label_logo.addMouseListener(this);
+		this.label_logo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.label_logo.setBounds(10, 10, 168, 40);
 		
 		this.caixa_pesquisa = new JTextField(pesquisa);
@@ -221,7 +224,14 @@ public class Second_Panel implements ActionListener, MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+		/*condicao para clicar na logo e voltar ao menu inicial*/
+		if(e.getComponent().getBounds().y == 10) {
+			/*remove tudo o que esta conectado no panel, e envia sua referencia para o proximo panel*/
+			this.panel.removeAll();
+			this.panel.revalidate();
+			this.panel.repaint();
+			new Main_Panel(this.panel);
+		}
 		/*for para comparar todas as paginas e ver qual delas foi clicada*/
 		for(int i = 0, x = 250; i < quant_pags; i++, x += 30) {
 			if(e.getComponent().getBounds().x == x) {

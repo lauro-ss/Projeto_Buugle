@@ -57,7 +57,7 @@ public class Error_Panel implements MouseListener{
 		/*cria um label clicavel*/
 		this.button_tente_novamente = new JButton("Recarregar");
 		this.button_tente_novamente.setFont(new Font("Arial",Font.BOLD,24));
-		//this.label_tente_novamente.setForeground(Color.BLUE.darker());
+		this.button_tente_novamente.setBackground(Color.WHITE);
 		this.button_tente_novamente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.button_tente_novamente.addMouseListener(this);
 		this.button_tente_novamente.setBounds(450,400,170,40);

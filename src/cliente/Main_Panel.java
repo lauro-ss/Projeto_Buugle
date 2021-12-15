@@ -1,6 +1,7 @@
 package cliente;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -47,11 +48,13 @@ public class Main_Panel implements ActionListener{
 		this.botao_pesquisa.setFont(new Font("Arial",Font.PLAIN,12));
 		this.botao_pesquisa.setBackground(Color.WHITE);
 		this.botao_pesquisa.addActionListener(this);
+		this.botao_pesquisa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.botao_pesquisa.setBounds(275,300,100,30);
 		
 		this.estou_com_sorte.setFont(new Font("Arial",Font.PLAIN,12));
 		this.estou_com_sorte.setBackground(Color.WHITE);
 		this.estou_com_sorte.addActionListener(this);
+		this.estou_com_sorte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.estou_com_sorte.setBounds(410,300,100,30);
 		
 		this.caixa_pesquisa = new JTextField();
@@ -97,11 +100,13 @@ public class Main_Panel implements ActionListener{
 		this.botao_pesquisa.setFont(new Font("Arial",Font.PLAIN,12));
 		this.botao_pesquisa.setBackground(Color.WHITE);
 		this.botao_pesquisa.addActionListener(this);
+		this.botao_pesquisa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.botao_pesquisa.setBounds(275,300,100,30);
 		
 		this.estou_com_sorte.setFont(new Font("Arial",Font.PLAIN,12));
 		this.estou_com_sorte.setBackground(Color.WHITE);
 		this.estou_com_sorte.addActionListener(this);
+		this.estou_com_sorte.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.estou_com_sorte.setBounds(410,300,100,30);
 		
 		this.caixa_pesquisa = new JTextField();
