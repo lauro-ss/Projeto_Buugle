@@ -31,6 +31,7 @@ public class Second_Panel implements ActionListener, MouseListener{
 	
 	private JLabel conteudo_encontrado[];
 	private JLabel conteudo_encontrado_aux[];
+	private JLabel conteudo_nao_encontrado;
 	
 	/*variavel relacionadal a segunda pagina em diante*/
 	private JLabel go_to_pg[];
@@ -104,6 +105,11 @@ public class Second_Panel implements ActionListener, MouseListener{
 			this.go_to_pg = new JLabel[0]; //seta para 0 a pesquisa vazia
 			this.last_pesquisa = pesquisa;
 			
+			this.conteudo_nao_encontrado = new JLabel("Conteúdo não encontrado.");
+			this.conteudo_nao_encontrado.setFont(new Font("Arial",Font.PLAIN,24));
+			this.conteudo_nao_encontrado.setBounds(195,60,350,26);
+			
+			this.panel.add(conteudo_nao_encontrado);
 			this.panel.add(botao_pesquisa);
 			this.panel.add(caixa_pesquisa);
 			this.panel.add(label_logo);
@@ -134,31 +140,73 @@ public class Second_Panel implements ActionListener, MouseListener{
 			this.conteudo_encontrado_aux = null; //seta como nulo para 'zerar' o array
 			this.go_to_pg = null; //seta o como nulo para 'zerar' o numero de paginas
 			
-			this.links = conexao.enviar_pesquisa(caixa_pesquisa.getText()); //envia a string procurada para o servidor principal
-			this.last_pesquisa = caixa_pesquisa.getText(); //guarda a ultima pesquisa feita, pois caso seja igual a proxima, nao muda os links
-			this.quant_links = links.length; //quantidade de hyperlinks
-			this.quant_pags = (this.quant_links/5)+1; //como o maximo de links exibidos e 5, entao essa expressao pega a media deles em 5
-			this.conteudo_encontrado = new JLabel[quant_links];
-			this.conteudo_encontrado_aux = new JLabel[quant_links];
-			
-			this.go_to_pg = new JLabel[quant_pags];
-			/*condicao que confirma a necessidade de haver mais de uma pagina*/
-			for(int i = 0; i < quant_pags; i++) {
-				this.go_to_pg[i] = new JLabel(Integer.toString(i+1));
-				this.go_to_pg[i].setFont(new Font("Arial",Font.PLAIN,12));
-				this.go_to_pg[i].addMouseListener(this);
-				this.go_to_pg[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				this.go_to_pg[i].setBounds(250+(i*30),530,12,12);
-				this.panel.add(go_to_pg[i]);
-			}
-			
-			this.pg_atual = 0; //numero de paginas setado para 0
-			mostraLinks(); //adiciona na tela ate cinco hyperlinks
-			
-			/*atualiza o painel atual*/
-			this.panel.setVisible(true);
-			this.panel.setLayout(null);
 			this.panel.repaint();
+			
+			this.links = conexao.enviar_pesquisa(caixa_pesquisa.getText()); //envia a string procurada para o servidor principal
+			/*tratamento para pesquisa encontrada ou nao*/
+			if(this.links != null && this.links.length > 0) {
+				/*remove o label com mensagem de nada encontrado */
+				this.panel.remove(conteudo_nao_encontrado);
+				this.panel.setVisible(true);
+				this.panel.setLayout(null);
+				this.panel.repaint();
+				
+				this.last_pesquisa = caixa_pesquisa.getText(); //guarda a ultima pesquisa feita, pois caso seja igual a proxima, nao muda os links
+				this.quant_links = links.length; //quantidade de hyperlinks
+				this.quant_pags = (this.quant_links/5)+1; //como o maximo de links exibidos e 5, entao essa expressao pega a media deles em 5
+				this.conteudo_encontrado = new JLabel[quant_links];
+				this.conteudo_encontrado_aux = new JLabel[quant_links];
+				
+				this.go_to_pg = new JLabel[quant_pags];
+				/*condicao que confirma a necessidade de haver mais de uma pagina*/
+				for(int i = 0; i < quant_pags; i++) {
+					this.go_to_pg[i] = new JLabel(Integer.toString(i+1));
+					this.go_to_pg[i].setFont(new Font("Arial",Font.PLAIN,12));
+					this.go_to_pg[i].addMouseListener(this);
+					this.go_to_pg[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+					this.go_to_pg[i].setBounds(250+(i*30),530,12,12);
+					this.panel.add(go_to_pg[i]);
+				}
+				
+				this.pg_atual = 0; //numero de paginas setado para 0
+				mostraLinks(); //adiciona na tela ate cinco hyperlinks
+				
+				/*atualiza o painel atual*/
+				this.panel.setVisible(true);
+				this.panel.setLayout(null);
+				this.panel.repaint();
+			}else {
+				/*caso para servidor desligado ou com problemas*/
+				if(this.links == null) {
+					this.panel.removeAll();
+					this.panel.repaint();
+					new Error_Panel(this.panel);
+				}
+				this.panel.remove(conteudo_nao_encontrado);
+				this.panel.setVisible(true);
+				this.panel.setLayout(null);
+				this.panel.repaint();
+				
+				this.conteudo_encontrado = new JLabel[0]; //seta para 0 a pesquisa vazia
+				this.conteudo_encontrado_aux = new JLabel[0]; //seta para 0 a pesquisa vazia
+				this.go_to_pg = new JLabel[0]; //seta para 0 a pesquisa vazia
+				this.last_pesquisa = caixa_pesquisa.getText(); //guarda a ultima pesquisa feita, pois caso seja igual a proxima, nao muda os links
+				
+				if(this.conteudo_nao_encontrado == null) {
+					this.conteudo_nao_encontrado = new JLabel("Conteúdo não encontrado.");
+					this.conteudo_nao_encontrado.setFont(new Font("Arial",Font.PLAIN,24));
+					this.conteudo_nao_encontrado.setBounds(195,60,350,26);
+				}
+				
+				this.panel.add(conteudo_nao_encontrado);
+				this.panel.add(botao_pesquisa);
+				this.panel.add(caixa_pesquisa);
+				this.panel.add(label_logo);
+				
+				/*atualiza o painel atual*/
+				this.panel.setVisible(true);
+				this.panel.setLayout(null);
+			}
 		}
 	}
 	
@@ -258,6 +306,7 @@ public class Second_Panel implements ActionListener, MouseListener{
 				aux = 0;
 			}
 			aux++;
+			/*((i-(5*pg_atual))*100) e a equacao responsavel por pular um mesmo numero x de pixels para encaixar os hyperlinks*/
 			this.conteudo_encontrado[i].setBounds(195,60+((i-(5*pg_atual))*100),350,26);
 			this.conteudo_encontrado_aux[i].setBounds(205,85+((i-(5*pg_atual))*100), 350, 12);
 			/*adicional ao panel todos os cinco primeiros hyperlinks*/
