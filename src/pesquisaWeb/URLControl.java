@@ -119,6 +119,7 @@ public class URLControl {
 				return true;
 			}
 		}else {
+			int aux_cont = 0; //auxilia na comparacao
 			/* for que procura a string a(procurada) na string b(title) */
 			for(;i < b.length(); i++) {
 				/* caso o contador seja igual ao tamanho da palavra a, entao a palavra foi encontrada */
@@ -130,7 +131,16 @@ public class URLControl {
 				/* utilizando o metodo toLowerCase para converter e comparar ambas as strings 
 				 * caso sejam iguais, o cont e incrementado */
 				if(Character.toLowerCase(a_char[cont]) == Character.toLowerCase(b_char[i])) {
-					cont++;
+					/*a primeira match e salvo o indice i no aux_cont*/
+					if(aux_cont == 0) {
+						aux_cont = i;
+						cont++;
+					}
+					/*caso o proximo caractere que deu match tenha o indice somado o anterior +1, entao o conjunto de caracteres e valido*/
+					if(aux_cont+1 == i) { 
+						aux_cont++;
+						cont++;
+					}
 				}
 				
 			}
