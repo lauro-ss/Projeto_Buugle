@@ -96,10 +96,12 @@ public class Second_Panel implements ActionListener, MouseListener{
 		}else {
 			/*caso para servidor desligado ou com problemas*/
 			if(this.links == null) {
+				/*remove tudo o que esta conectado no panel, e envia sua referencia para o proximo panel*/
 				this.panel.removeAll();
+				this.panel.revalidate();
 				this.panel.repaint();
-				new Error_Panel(this.panel);
-			}
+				new Error_Panel(this.panel,this.conexao);
+			}else {
 			this.conteudo_encontrado = new JLabel[0]; //seta para 0 a pesquisa vazia
 			this.conteudo_encontrado_aux = new JLabel[0]; //seta para 0 a pesquisa vazia
 			this.go_to_pg = new JLabel[0]; //seta para 0 a pesquisa vazia
@@ -117,6 +119,7 @@ public class Second_Panel implements ActionListener, MouseListener{
 			/*atualiza o painel atual*/
 			this.panel.setVisible(true);
 			this.panel.setLayout(null);
+			}
 		}
 		
 	}
@@ -146,7 +149,8 @@ public class Second_Panel implements ActionListener, MouseListener{
 			/*tratamento para pesquisa encontrada ou nao*/
 			if(this.links != null && this.links.length > 0) {
 				/*remove o label com mensagem de nada encontrado */
-				this.panel.remove(conteudo_nao_encontrado);
+				if(conteudo_nao_encontrado != null)
+					this.panel.remove(conteudo_nao_encontrado);
 				this.panel.setVisible(true);
 				this.panel.setLayout(null);
 				this.panel.repaint();
@@ -178,34 +182,39 @@ public class Second_Panel implements ActionListener, MouseListener{
 			}else {
 				/*caso para servidor desligado ou com problemas*/
 				if(this.links == null) {
+					/*remove tudo o que esta conectado no panel, e envia sua referencia para o proximo panel*/
 					this.panel.removeAll();
+					this.panel.revalidate();
 					this.panel.repaint();
-					new Error_Panel(this.panel);
+					new Error_Panel(this.panel,this.conexao);
+				}else {
+					if(conteudo_nao_encontrado != null)
+						this.panel.remove(conteudo_nao_encontrado);
+					
+					this.panel.setVisible(true);
+					this.panel.setLayout(null);
+					this.panel.repaint();
+					
+					this.conteudo_encontrado = new JLabel[0]; //seta para 0 a pesquisa vazia
+					this.conteudo_encontrado_aux = new JLabel[0]; //seta para 0 a pesquisa vazia
+					this.go_to_pg = new JLabel[0]; //seta para 0 a pesquisa vazia
+					this.last_pesquisa = caixa_pesquisa.getText(); //guarda a ultima pesquisa feita, pois caso seja igual a proxima, nao muda os links
+					
+					if(this.conteudo_nao_encontrado == null) {
+						this.conteudo_nao_encontrado = new JLabel("Conteúdo não encontrado.");
+						this.conteudo_nao_encontrado.setFont(new Font("Arial",Font.PLAIN,24));
+						this.conteudo_nao_encontrado.setBounds(195,60,350,26);
+					}
+					
+					this.panel.add(conteudo_nao_encontrado);
+					this.panel.add(botao_pesquisa);
+					this.panel.add(caixa_pesquisa);
+					this.panel.add(label_logo);
+					
+					/*atualiza o painel atual*/
+					this.panel.setVisible(true);
+					this.panel.setLayout(null);
 				}
-				this.panel.remove(conteudo_nao_encontrado);
-				this.panel.setVisible(true);
-				this.panel.setLayout(null);
-				this.panel.repaint();
-				
-				this.conteudo_encontrado = new JLabel[0]; //seta para 0 a pesquisa vazia
-				this.conteudo_encontrado_aux = new JLabel[0]; //seta para 0 a pesquisa vazia
-				this.go_to_pg = new JLabel[0]; //seta para 0 a pesquisa vazia
-				this.last_pesquisa = caixa_pesquisa.getText(); //guarda a ultima pesquisa feita, pois caso seja igual a proxima, nao muda os links
-				
-				if(this.conteudo_nao_encontrado == null) {
-					this.conteudo_nao_encontrado = new JLabel("Conteúdo não encontrado.");
-					this.conteudo_nao_encontrado.setFont(new Font("Arial",Font.PLAIN,24));
-					this.conteudo_nao_encontrado.setBounds(195,60,350,26);
-				}
-				
-				this.panel.add(conteudo_nao_encontrado);
-				this.panel.add(botao_pesquisa);
-				this.panel.add(caixa_pesquisa);
-				this.panel.add(label_logo);
-				
-				/*atualiza o painel atual*/
-				this.panel.setVisible(true);
-				this.panel.setLayout(null);
 			}
 		}
 	}
