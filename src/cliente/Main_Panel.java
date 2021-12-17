@@ -67,7 +67,7 @@ public class Main_Panel implements ActionListener{
 		this.label_logo.setBounds(225, 140, 341, 82);
 		
 		/*mensagem*/
-		this.mensagem = new JLabel("Buugle - Alpha - 0.1");
+		this.mensagem = new JLabel("Buugle - Alpha - 0.2");
 		this.mensagem.setFont(new Font("Arial",Font.PLAIN,12));
 		this.mensagem.setBounds(340,450,120,12);
 		
@@ -119,7 +119,7 @@ public class Main_Panel implements ActionListener{
 		this.label_logo.setBounds(225, 140, 341, 82);
 		
 		/*mensagem*/
-		this.mensagem = new JLabel("Buugle - Alpha - 0.1");
+		this.mensagem = new JLabel("Buugle - Alpha - 0.2");
 		this.mensagem.setFont(new Font("Arial",Font.PLAIN,12));
 		this.mensagem.setBounds(340,450,120,12);
 		

@@ -73,7 +73,10 @@ public class Second_Panel implements ActionListener, MouseListener{
 		if(this.links != null && this.links.length > 0) {
 			this.last_pesquisa = pesquisa;
 			this.quant_links = links.length;
-			this.quant_pags = (this.quant_links/5)+1; //quantidade de paginas
+			if(quant_links % 5 != 0)
+				this.quant_pags = (this.quant_links/5)+1; //quantidade de paginas, soma +1 caso n seja divisivel por 5
+			else
+				this.quant_pags = (this.quant_links/5); //quantidade de paginas, nao soma caso seja divisvel por 5
 			this.conteudo_encontrado = new JLabel[quant_links]; //quantidade de links encontrados
 			this.conteudo_encontrado_aux = new JLabel[quant_links];
 			
@@ -160,7 +163,10 @@ public class Second_Panel implements ActionListener, MouseListener{
 				
 				this.last_pesquisa = caixa_pesquisa.getText(); //guarda a ultima pesquisa feita, pois caso seja igual a proxima, nao muda os links
 				this.quant_links = links.length; //quantidade de hyperlinks
-				this.quant_pags = (this.quant_links/5)+1; //como o maximo de links exibidos e 5, entao essa expressao pega a media deles em 5
+				if(quant_links % 5 != 0)
+					this.quant_pags = (this.quant_links/5)+1; //quantidade de paginas
+				else
+					this.quant_pags = (this.quant_links/5);
 				this.conteudo_encontrado = new JLabel[quant_links];
 				this.conteudo_encontrado_aux = new JLabel[quant_links];
 				
@@ -305,7 +311,7 @@ public class Second_Panel implements ActionListener, MouseListener{
 			/*if(links[i].getTitle().length() == 32) {
 				System.out.println("Preciso");
 			}*/
-			System.out.println("Criando hyperlink para: "+links[i].getTitle());
+			//System.out.println("Criando hyperlink para: "+links[i].getTitle());
 			this.conteudo_encontrado[i] = new JLabel(links[i].getTitle());
 			this.conteudo_encontrado[i].setFont(new Font("Arial",Font.PLAIN,20));
 			this.conteudo_encontrado[i].setForeground(Color.BLUE.darker());
